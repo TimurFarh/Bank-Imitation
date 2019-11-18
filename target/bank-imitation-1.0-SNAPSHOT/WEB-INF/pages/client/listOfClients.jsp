@@ -25,6 +25,7 @@
             <td>${client.lastName}</td>
             <td>${client.age}</td>
             <td>${client.address}</td>
+            <td><a href="/accounts/${client}">accounts</a></td>
             <td></td>
             <td>
                 <a href="/edit/${client.id}">Edit information</a>

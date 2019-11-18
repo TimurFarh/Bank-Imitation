@@ -10,7 +10,6 @@ import testgroup.bankimitation.service.ServiceFactory;
 import java.util.List;
 
 @Controller
-//@RequestMapping(value = "")
 public class ClientController {
     private ServiceFactory service;
 
@@ -22,18 +21,18 @@ public class ClientController {
 
     @GetMapping(value = "/")
     public ModelAndView allClients() {
-        List<Client> clients = service.clients();
+        List<Client> clients = service.getAll();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("listOfClients");
+        modelAndView.setViewName("client/listOfClients");
         modelAndView.addObject("allClients", clients);
         return modelAndView;
     }
 
     @GetMapping(value = "/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") int id) {
-        Client client = service.getById(id);
+        Client client = (Client) service.getById(id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("addNewClient");
+        modelAndView.setViewName("client/addNewClient");
         modelAndView.addObject("client", client);
         return modelAndView;
     }
@@ -49,7 +48,7 @@ public class ClientController {
     @GetMapping(value = "/add")
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("addNewClient");
+        modelAndView.setViewName("client/addNewClient");
         return modelAndView;
     }
 
@@ -65,7 +64,7 @@ public class ClientController {
     public ModelAndView deleteClient(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
-        Client client = service.getById(id);
+        Client client = (Client) service.getById(id);
         service.delete(client);
         return modelAndView;
     }

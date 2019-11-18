@@ -9,7 +9,7 @@ import testgroup.bankimitation.model.Client;
 import java.util.List;
 
 @Service
-public class ClientService implements ServiceFactory {
+public class ClientService implements ServiceFactory<Client> {
     private GenericDAO clientDAO;
 
     @Autowired
@@ -19,7 +19,7 @@ public class ClientService implements ServiceFactory {
 
     @Override
     @Transactional
-    public List<Client> clients() {
+    public List<Client> getAll() {
         return clientDAO.getAll();
     }
 

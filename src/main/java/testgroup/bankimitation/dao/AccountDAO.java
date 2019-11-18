@@ -21,7 +21,7 @@ public class AccountDAO implements GenericDAO<BankAccount>{
     @SuppressWarnings("unchecked")
     public List<BankAccount> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Client.accounts").list();
+        return session.createQuery("").list();
     }
 
     @Override

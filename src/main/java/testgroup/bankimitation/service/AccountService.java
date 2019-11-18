@@ -1,32 +1,41 @@
 package testgroup.bankimitation.service;
 
-import testgroup.bankimitation.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import testgroup.bankimitation.dao.GenericDAO;
+import testgroup.bankimitation.model.BankAccount;
 
 import java.util.List;
 
-public class AccountService implements ServiceFactory {
-    @Override
-    public List<Client> clients() {
-        return null;
+public class AccountService implements ServiceFactory<BankAccount> {
+    private GenericDAO genericDAO;
+
+    @Autowired
+    public void setGenericDAO(GenericDAO genericDAO) {
+        this.genericDAO = genericDAO;
     }
 
     @Override
-    public void add(Client client) {
+    public List<BankAccount> getAll() {
+        return genericDAO.getAll();
+    }
+
+    @Override
+    public void add(BankAccount T) {
 
     }
 
     @Override
-    public void delete(Client client) {
+    public void delete(BankAccount T) {
 
     }
 
     @Override
-    public void edit(Client client) {
+    public void edit(BankAccount T) {
 
     }
 
     @Override
-    public Client getById(int id) {
+    public BankAccount getById(int id) {
         return null;
     }
 }

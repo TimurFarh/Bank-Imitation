@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import testgroup.bankimitation.model.BankAccount;
 import testgroup.bankimitation.model.Client;
-import testgroup.bankimitation.service.ServiceFactory;
+import testgroup.bankimitation.service.AccountService;
 
 import java.util.List;
 
 @Controller
 public class AccountController {
-    private ServiceFactory service;
+    private AccountService service;
 
     @Autowired
-    public void setService(ServiceFactory service) {
+    public void setService(AccountService service) {
         this.service = service;
     }
 

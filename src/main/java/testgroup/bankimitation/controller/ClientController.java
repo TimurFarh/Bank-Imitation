@@ -5,16 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testgroup.bankimitation.model.Client;
-import testgroup.bankimitation.service.ServiceFactory;
+import testgroup.bankimitation.service.ClientService;
 
 import java.util.List;
 
 @Controller
 public class ClientController {
-    private ServiceFactory service;
+    private ClientService service;
 
     @Autowired
-    public void setService(ServiceFactory service) {
+    public void setService(ClientService service) {
         this.service = service;
     }
 

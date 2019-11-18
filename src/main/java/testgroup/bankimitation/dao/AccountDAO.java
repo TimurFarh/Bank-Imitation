@@ -9,7 +9,7 @@ import testgroup.bankimitation.model.BankAccount;
 import java.util.List;
 
 @Repository
-public class AccountDAO implements GenericDAO<BankAccount>{
+public class AccountDAO{
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -17,32 +17,27 @@ public class AccountDAO implements GenericDAO<BankAccount>{
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
     public List<BankAccount> getAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("").list();
     }
 
-    @Override
     public void add(BankAccount object) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(object);
     }
 
-    @Override
     public void delete(BankAccount object) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(object);
     }
 
-    @Override
     public void edit(BankAccount object) {
         Session session = sessionFactory.getCurrentSession();
         session.update(object);
     }
 
-    @Override
     public BankAccount getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(BankAccount.class, id);

@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public class ClientDAO implements GenericDAO<Client> {
+public class ClientDAO{
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -18,32 +18,27 @@ public class ClientDAO implements GenericDAO<Client> {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
     public List<Client> getAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Client").list();
     }
 
-    @Override
     public void add(Client object) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(object);
     }
 
-    @Override
     public void delete(Client object) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(object);
     }
 
-    @Override
     public void edit(Client object) {
         Session session = sessionFactory.getCurrentSession();
         session.update(object);
     }
 
-    @Override
     public Client getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Client.class, id);

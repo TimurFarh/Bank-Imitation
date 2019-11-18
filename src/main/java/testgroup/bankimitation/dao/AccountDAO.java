@@ -2,9 +2,11 @@ package testgroup.bankimitation.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import testgroup.bankimitation.model.BankAccount;
+import testgroup.bankimitation.model.Client;
 
 import java.util.List;
 
@@ -18,9 +20,11 @@ public class AccountDAO{
     }
 
     @SuppressWarnings("unchecked")
-    public List<BankAccount> getAll() {
+    public List<BankAccount> getAll(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("").list();
+        Query query = session.createQuery("from BankAccount where client.id = :clientId");
+        query.setParameter("clientId", id);
+        return query.list();
     }
 
     public void add(BankAccount object) {

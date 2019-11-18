@@ -20,9 +20,9 @@ public class AccountController {
         this.service = service;
     }
 
-    @GetMapping(value = "/accounts/{client}")
-    public ModelAndView accountsOfClient(@PathVariable Client client) {
-        List<BankAccount> accounts = service.getAll();
+    @GetMapping(value = "/accounts/{id}")
+    public ModelAndView accountsOfClient(@PathVariable int id) {
+        List<BankAccount> accounts = service.getAll(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("account/bankAccountsOfClient");
         modelAndView.addObject("accounts", accounts);

@@ -2,8 +2,10 @@ package testgroup.bankimitation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import testgroup.bankimitation.dao.AccountDAO;
 import testgroup.bankimitation.model.BankAccount;
+import testgroup.bankimitation.model.Client;
 
 import java.util.List;
 
@@ -16,23 +18,28 @@ public class AccountService {
         this.accountDAO = accountDAO;
     }
 
-    public List<BankAccount> getAll() {
-        return accountDAO.getAll();
+    @Transactional
+    public List<BankAccount> getAll(int id) {
+        return accountDAO.getAll(id);
     }
 
-    public void add(BankAccount T) {
-
+    @Transactional
+    public void add(BankAccount account) {
+        accountDAO.add(account);
     }
 
-    public void delete(BankAccount T) {
-
+    @Transactional
+    public void delete(BankAccount account) {
+        accountDAO.delete(account);
     }
 
-    public void edit(BankAccount T) {
-
+    @Transactional
+    public void edit(BankAccount account) {
+        accountDAO.edit(account);
     }
 
+    @Transactional
     public BankAccount getById(int id) {
-        return null;
+        return accountDAO.getById(id);
     }
 }

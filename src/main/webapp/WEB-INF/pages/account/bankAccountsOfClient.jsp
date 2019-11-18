@@ -18,7 +18,7 @@
             <td>Account type</td>
             <td>Balance</td>
         </tr>
-        <c:forEach var="account" items="accounts">
+        <c:forEach var="account" items="${accounts}">
             <tr>
                 <td>${account.numberOfAccount}</td>
                 <td>${account.typeOfAccount}</td>

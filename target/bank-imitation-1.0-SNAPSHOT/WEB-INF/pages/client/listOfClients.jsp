@@ -25,12 +25,9 @@
             <td>${client.lastName}</td>
             <td>${client.age}</td>
             <td>${client.address}</td>
-            <td><a href="/accounts/${client}">accounts</a></td>
-            <td></td>
-            <td>
-                <a href="/edit/${client.id}">Edit information</a>
-                <a href="/delete/${client.id}">Delete client</a>
-            </td>
+            <td><a href="/accounts/${client.id}">accounts</a></td>
+            <td><a href="/edit/${client.id}">Edit information</a></td>
+            <td><a href="/delete/${client.id}">Delete client</a></td>
         </tr>
     </c:forEach>
 </table>

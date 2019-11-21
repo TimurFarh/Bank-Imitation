@@ -29,8 +29,8 @@ public class ClientController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public ModelAndView editPage(@PathVariable("id") int id) {
-        Client client = (Client) service.getById(id);
+    public ModelAndView editClient(@PathVariable("id") int id) {
+        Client client = service.getById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("client/addNewClient");
         modelAndView.addObject("client", client);
@@ -46,7 +46,7 @@ public class ClientController {
     }
 
     @GetMapping(value = "/add")
-    public ModelAndView addPage() {
+    public ModelAndView addClient() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("client/addNewClient");
         return modelAndView;
@@ -64,7 +64,7 @@ public class ClientController {
     public ModelAndView deleteClient(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
-        Client client = (Client) service.getById(id);
+        Client client = service.getById(id);
         service.delete(client);
         return modelAndView;
     }

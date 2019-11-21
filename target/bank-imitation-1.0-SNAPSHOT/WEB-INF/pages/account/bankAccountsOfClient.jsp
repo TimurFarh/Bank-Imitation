@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: timur
-  Date: 17.11.2019
-  Time: 19:00
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -15,16 +9,22 @@
     <table>
         <tr>
             <td>Number of account</td>
-            <td>Account type</td>
+            <td>Account name</td>
             <td>Balance</td>
+            <td>Account type</td>
+            <td>Operations</td>
         </tr>
         <c:forEach var="account" items="${accounts}">
             <tr>
-                <td>${account.numberOfAccount}</td>
-                <td>${account.typeOfAccount}</td>
+                <td>${account.id}</td>
+                <td>${account.name}</td>
                 <td>${account.balance}</td>
+                <td>${account.currency}</td>
+                <td><a href="/deposit-account/${account.id}">Deposit</a></td>
             </tr>
         </c:forEach>
     </table>
+
+<a href="/add-new-account/${client.id}">Add new account</a>
 </body>
 </html>

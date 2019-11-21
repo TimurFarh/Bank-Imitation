@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import testgroup.bankimitation.dao.AccountDAO;
 import testgroup.bankimitation.model.BankAccount;
-import testgroup.bankimitation.model.Client;
 
 import java.util.List;
 

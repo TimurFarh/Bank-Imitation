@@ -8,13 +8,14 @@ public class BankAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "number_account")
-    private int numberOfAccount;
+    @Column(name = "id")
+    private int id;
 
-    @Column(name = "type_account")
-    private String typeOfAccount;
+    @Column(name = "name")
+    private String name;
 
     private int balance;
+    private String currency;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
@@ -23,16 +24,24 @@ public class BankAccount {
     public BankAccount() {
     }
 
-    public int getNumberOfAccount() {
-        return numberOfAccount;
+    public int getId() {
+        return id;
     }
 
-    public String getTypeOfAccount() {
-        return typeOfAccount;
+    public String getName() {
+        return name;
     }
 
-    public void setTypeOfAccount(String typeOfAccount) {
-        this.typeOfAccount = typeOfAccount;
+    public void setName(String accountName) {
+        this.name = accountName;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String typeOfAccount) {
+        this.currency = typeOfAccount;
     }
 
     public int getBalance() {

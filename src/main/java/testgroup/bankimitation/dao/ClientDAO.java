@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public class ClientDAO{
+public class ClientDAO {
     private SessionFactory sessionFactory;
 
     @Autowired

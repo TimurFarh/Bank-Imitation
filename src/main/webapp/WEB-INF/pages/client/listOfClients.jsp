@@ -19,7 +19,7 @@
             <td>${client.lastName}</td>
             <td>${client.age}</td>
             <td>${client.address}</td>
-            <td><a href="/${client}/${client.id}/accounts/">Accounts</a></td>
+            <td><a href="/${client}/${client.id}/accounts">Accounts</a></td>
             <td><a href="/edit/${client.id}">Edit information</a></td>
             <td><a href="/delete/${client.id}">Delete client</a></td>
         </tr>

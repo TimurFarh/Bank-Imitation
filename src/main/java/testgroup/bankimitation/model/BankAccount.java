@@ -1,6 +1,7 @@
 package testgroup.bankimitation.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "bank_accounts")
@@ -8,18 +9,19 @@ public class BankAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
     @Column(name = "name")
     private String name;
 
     private int balance;
-    private String currency;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Transaction> transactions;
 
     public BankAccount() {
     }
@@ -36,14 +38,6 @@ public class BankAccount {
         this.name = accountName;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String typeOfAccount) {
-        this.currency = typeOfAccount;
-    }
-
     public int getBalance() {
         return balance;
     }
@@ -58,5 +52,13 @@ public class BankAccount {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

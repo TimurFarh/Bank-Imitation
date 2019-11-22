@@ -7,11 +7,9 @@
 </head>
 <body>
 <form action = "/add-new-account/${client.id}" method="post">
-    <input type="hidden" name="balance" value="0"}>
+    <input type="hidden" name="balance" value="0">
     <label for="name">Account name</label>
-    <input type="text" name="name" id="name" value="${client.id}">
-    <label for="currency">Currency</label>
-    <input type="text" name="currency" id="currency">
+    <input type="text" name="name" id="name">
     <input type="submit" value="Add new account">
 </form>
 </body>

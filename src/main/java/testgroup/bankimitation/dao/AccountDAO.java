@@ -26,19 +26,19 @@ public class AccountDAO{
         return query.list();
     }
 
-    public void add(BankAccount object) {
+    public void add(BankAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(object);
+        session.persist(account);
     }
 
-    public void delete(BankAccount object) {
+    public void delete(BankAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(object);
+        session.delete(account);
     }
 
-    public void edit(BankAccount object) {
+    public void edit(BankAccount account) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(object);
+        session.update(account);
     }
 
     public BankAccount getById(int id) {

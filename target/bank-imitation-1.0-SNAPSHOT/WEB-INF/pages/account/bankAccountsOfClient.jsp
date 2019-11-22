@@ -11,7 +11,6 @@
             <td>Number of account</td>
             <td>Account name</td>
             <td>Balance</td>
-            <td>Account type</td>
             <td>Operations</td>
         </tr>
         <c:forEach var="account" items="${accounts}">
@@ -19,8 +18,8 @@
                 <td>${account.id}</td>
                 <td>${account.name}</td>
                 <td>${account.balance}</td>
-                <td>${account.currency}</td>
-                <td><a href="/deposit-account/${account.id}">Deposit</a></td>
+                <td><a href="/deposit-account/${client.id}/${account.id}">Deposit</a></td>
+                <td><a href="/delete-account/${account.id}/${client.id}">Close</a> </td>
             </tr>
         </c:forEach>
     </table>

@@ -27,13 +27,6 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, int age, String address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.address = address;
-    }
-
     public int getId() {
         return id;
     }

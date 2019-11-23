@@ -1,5 +1,7 @@
 package testgroup.bankimitation.model;
 
+import testgroup.bankimitation.exception.NotEnoughMoneyException;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -79,4 +81,5 @@ public class Client {
     public String toString() {
         return  firstName + lastName;
     }
+
 }

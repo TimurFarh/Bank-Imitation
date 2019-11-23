@@ -36,5 +36,6 @@
         <input type="submit" value="Edit client">
     </c:if>
 </form>
+<form action="/"><input type="submit" value="Cancel"></form>
 </body>
 </html>

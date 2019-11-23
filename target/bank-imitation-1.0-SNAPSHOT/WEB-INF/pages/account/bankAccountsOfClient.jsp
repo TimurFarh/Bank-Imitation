@@ -25,6 +25,7 @@
         </c:forEach>
     </table>
 
-<a href="/add-new-account/${client.id}">Add new account</a>
+    <a href="/add-new-account/${client.id}">Add new account</a>
+    <form action="/"><input type="submit" value="List of clients"></form>
 </body>
 </html>

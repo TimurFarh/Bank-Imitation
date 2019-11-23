@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import testgroup.bankimitation.dao.AccountDAO;
 import testgroup.bankimitation.exception.NotEnoughMoneyException;
 import testgroup.bankimitation.exception.WrongAccountException;
+import testgroup.bankimitation.exception.WrongAmountException;
 import testgroup.bankimitation.model.BankAccount;
 import testgroup.bankimitation.model.Transaction;
 
@@ -29,17 +30,19 @@ public class AccountService {
         accountDAO.add(account);
     }
 
-    public void edit(BankAccount account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
-        int depositNumber = Integer.parseInt(transaction.getTo());
+    public void edit(BankAccount account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException, WrongAmountException {
+        if (transaction.getAmount() <= 0) throw new WrongAmountException();
         switch (operation) {
             case 0: //deposit
                 if (transaction.getFrom().matches("\\d+")) throw new WrongAccountException();
                 account.setBalance(account.getBalance() + transaction.getAmount());
                 break;
+
             case 1: //withdraw
                 if (account.getBalance() < transaction.getAmount()) throw new NotEnoughMoneyException();
-                if (depositNumber == account.getId()) throw new WrongAccountException();
                 try {
+                    int depositNumber = Integer.parseInt(transaction.getTo());
+                    if (depositNumber == account.getId()) throw new WrongAccountException();
                     BankAccount depositAccount = getById(depositNumber);
                     if (depositAccount == null) throw new WrongAccountException();
                     depositAccount.setBalance(depositAccount.getBalance() + transaction.getAmount());
@@ -47,10 +50,12 @@ public class AccountService {
                 }
                 account.setBalance(account.getBalance() - transaction.getAmount());
                 break;
+
             case 2: //close
-                if (depositNumber == account.getId()) throw new WrongAccountException();
                 try {
-                    BankAccount depositAccount = getById(Integer.parseInt(transaction.getTo()));
+                    int depositNumber = Integer.parseInt(transaction.getTo());
+                    if (depositNumber == account.getId()) throw new WrongAccountException();
+                    BankAccount depositAccount = getById(depositNumber);
                     if (depositAccount == null) throw new WrongAccountException();
                     depositAccount.setBalance(depositAccount.getBalance() + account.getBalance());
                 } catch (NumberFormatException e) {

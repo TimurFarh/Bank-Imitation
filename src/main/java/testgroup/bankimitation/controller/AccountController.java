@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import testgroup.bankimitation.exception.NotEnoughMoneyException;
 import testgroup.bankimitation.exception.WrongAccountException;
+import testgroup.bankimitation.exception.WrongAmountException;
 import testgroup.bankimitation.model.BankAccount;
 
 import testgroup.bankimitation.model.Client;
@@ -92,14 +93,11 @@ public class AccountController {
         try {
             accountService.edit(account, operation, transaction);
             modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
-        } catch (NotEnoughMoneyException e) {
+        } catch (NotEnoughMoneyException | WrongAccountException | WrongAmountException exception) {
             transactionService.delete(transaction);
-            modelAndView.setViewName("information/notEnoughMoney");
+            modelAndView.setViewName("information/exceptions");
             modelAndView.addObject(client);
-        } catch (WrongAccountException e) {
-            transactionService.delete(transaction);
-            modelAndView.setViewName("information/wrongAccount");
-            modelAndView.addObject(client);
+            modelAndView.addObject("exception", exception.getClass().getSimpleName());
         }
         return modelAndView;
     }

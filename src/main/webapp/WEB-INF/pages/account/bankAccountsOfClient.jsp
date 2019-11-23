@@ -19,7 +19,8 @@
                 <td>${account.name}</td>
                 <td>${account.balance}</td>
                 <td><a href="/deposit-account/${client.id}/${account.id}">Deposit</a></td>
-                <td><a href="/delete-account/${account.id}/${client.id}">Close</a> </td>
+                <td><a href="/withdraw-account/${clientId}/${account.id}">Withdraw/Transfer</a></td>
+                <td><a href="/delete-account/${client.id}/${account.id}">Close</a> </td>
             </tr>
         </c:forEach>
     </table>

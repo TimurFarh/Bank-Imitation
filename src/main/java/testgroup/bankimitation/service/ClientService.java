@@ -36,6 +36,6 @@ public class ClientService {
     }
 
     public Client getById(int id) {
-        return (Client) clientDAO.getById(id);
+        return clientDAO.getById(id);
     }
 }

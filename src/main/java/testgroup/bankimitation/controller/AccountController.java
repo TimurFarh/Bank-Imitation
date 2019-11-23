@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import testgroup.bankimitation.exception.NotEnoughMoneyException;
+import testgroup.bankimitation.exception.WrongAccountException;
 import testgroup.bankimitation.model.BankAccount;
 
 import testgroup.bankimitation.model.Client;
 import testgroup.bankimitation.model.Operations;
+import testgroup.bankimitation.model.Transaction;
 import testgroup.bankimitation.service.AccountService;
 import testgroup.bankimitation.service.ClientService;
+import testgroup.bankimitation.service.TransactionService;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ import java.util.List;
 public class AccountController {
     private AccountService accountService;
     private ClientService clientService;
+    private TransactionService transactionService;
 
     @Autowired
     public void setAccountService(AccountService accountService) {
@@ -30,6 +35,11 @@ public class AccountController {
     @Autowired
     public void setClientService(ClientService clientService) {
         this.clientService = clientService;
+    }
+
+    @Autowired
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @GetMapping(value = "/{client}/{clientId}/accounts")
@@ -49,17 +59,48 @@ public class AccountController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transaction/transaction");
         modelAndView.addObject("account", account);
-        modelAndView.addObject("operation", Operations.DEPOSIT);
+        modelAndView.addObject("operation", Operations.Deposit);
         return modelAndView;
     }
 
-    @GetMapping(value = "/deposit-account/{clientId}/{accountId}/{operation}")
-    public ModelAndView depositedToAccount(@PathVariable int accountId, @PathVariable int operation, @PathVariable int clientId) {
+    @GetMapping(value = "/withdraw-account/{clientId}/{accountId}")
+    public ModelAndView withdrawFromAccount(@PathVariable int accountId, @PathVariable int clientId) {
+        BankAccount account = accountService.getById(accountId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("transaction/transaction");
+        modelAndView.addObject("account", account);
+        modelAndView.addObject("operation", Operations.Withdraw);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/delete-account/{clientId}/{accountId}")
+    public ModelAndView deleteAccount(@PathVariable int accountId, @PathVariable int clientId) {
         ModelAndView modelAndView = new ModelAndView();
         BankAccount account = accountService.getById(accountId);
-        accountService.edit(accountId, operation);
+        modelAndView.addObject("operation", Operations.Close);
+        modelAndView.addObject("account", account);
+        modelAndView.setViewName("transaction/transaction");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/transaction-account/{clientId}/{accountId}/{operation}/{transactionId}")
+    public ModelAndView depositedToAccount(@PathVariable int accountId, @PathVariable int operation, @PathVariable int clientId, @PathVariable int transactionId) {
+        ModelAndView modelAndView = new ModelAndView();
+        BankAccount account = accountService.getById(accountId);
+        Transaction transaction = transactionService.getById(transactionId);
         Client client = clientService.getById(clientId);
-        modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
+        try {
+            accountService.edit(account, operation, transaction);
+            modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
+        } catch (NotEnoughMoneyException e) {
+            transactionService.delete(transaction);
+            modelAndView.setViewName("information/notEnoughMoney");
+            modelAndView.addObject(client);
+        } catch (WrongAccountException e) {
+            transactionService.delete(transaction);
+            modelAndView.setViewName("information/wrongAccount");
+            modelAndView.addObject(client);
+        }
         return modelAndView;
     }
 
@@ -78,18 +119,6 @@ public class AccountController {
         Client client = clientService.getById(id);
         account.setClient(client);
         accountService.add(account);
-        modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/delete-account/{accountId}/{clientId}")
-    public ModelAndView deleteAccount(@PathVariable int accountId, @PathVariable int clientId) {
-        ModelAndView modelAndView = new ModelAndView();
-        BankAccount account = accountService.getById(accountId);
-        modelAndView.addObject("method", "close");
-        modelAndView.addObject("account", account);
-        accountService.delete(account);
-        Client client = clientService.getById(clientId);
         modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
         return modelAndView;
     }

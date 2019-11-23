@@ -1,5 +1,7 @@
 package testgroup.bankimitation.model;
 
+import com.sun.istack.Nullable;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,6 +27,7 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @Nullable
     private BankAccount account;
 
     public String getFrom() {

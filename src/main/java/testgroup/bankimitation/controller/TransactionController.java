@@ -32,7 +32,7 @@ public class TransactionController {
         BankAccount account = accountService.getById(accountId);
         transaction.setAccount(account);
         transactionService.add(transaction);
-        modelAndView.setViewName(String.format("redirect:/deposit-account/%d/%d/%d",clientId, accountId, operation));
+        modelAndView.setViewName(String.format("redirect:/transaction-account/%d/%d/%d/%d",clientId, accountId, operation, transaction.getId()));
         return modelAndView;
     }
 }

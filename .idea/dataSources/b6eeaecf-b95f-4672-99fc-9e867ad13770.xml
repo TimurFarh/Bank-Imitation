@@ -1193,7 +1193,7 @@
     </column>
     <column id="309" parent="231" name="operation">
       <Position>2</Position>
-      <DataType>enum(&apos;DEPOSIT&apos;, &apos;WITHDRAW&apos;, &apos;CLOSE&apos;)|0e</DataType>
+      <DataType>enum(&apos;Deposit&apos;, &apos;Withdraw&apos;, &apos;Close&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1225,7 +1225,6 @@
     <column id="314" parent="231" name="account_id">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="315" parent="231" name="transactions_bank_accounts_id_fk">
@@ -1241,6 +1240,7 @@
       <ColNames>account_id</ColNames>
       <RefTableName>bank_accounts</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>set-null</OnDelete>
     </foreign-key>
     <column id="318" parent="232" name="CHARACTER_SET_NAME">
       <Position>1</Position>

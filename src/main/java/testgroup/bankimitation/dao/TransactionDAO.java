@@ -30,4 +30,14 @@ public class TransactionDAO {
         Session session = sessionFactory.getCurrentSession();
         session.persist(transaction);
     }
+
+    public void delete(Transaction transaction) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(transaction);
+    }
+
+    public Transaction getById (int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Transaction.class, id);
+    }
 }

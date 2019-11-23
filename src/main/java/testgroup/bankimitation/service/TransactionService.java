@@ -43,4 +43,12 @@ public class TransactionService {
     public void add(Transaction transaction) {
         transactionDAO.add(transaction);
     }
+
+    public void delete(Transaction transaction) {
+        transactionDAO.delete(transaction);
+    }
+
+    public Transaction getById(int id) {
+        return transactionDAO.getById(id);
+    }
 }

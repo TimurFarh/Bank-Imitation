@@ -1,7 +1,7 @@
 package testgroup.bankimitation.model;
 
 public enum Operations {
-    DEPOSIT,
-    WITHDRAW,
-    CLOSE
+    Deposit,
+    Withdraw,
+    Close
 }

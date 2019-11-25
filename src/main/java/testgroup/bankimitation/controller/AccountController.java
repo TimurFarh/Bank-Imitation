@@ -45,9 +45,9 @@ public class AccountController {
 
     @GetMapping(value = "/{client}/{clientId}/accounts")
     public ModelAndView accountsOfClient(@PathVariable("clientId") int clientId) {
+        ModelAndView modelAndView = new ModelAndView();
         List<BankAccount> accounts = accountService.getAll(clientId);
         Client client = clientService.getById(clientId);
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("account/bankAccountsOfClient");
         modelAndView.addObject("accounts", accounts);
         modelAndView.addObject("client", client);
@@ -95,9 +95,9 @@ public class AccountController {
             modelAndView.setViewName(String.format("redirect:/%s/%d/accounts/", client, client.getId()));
         } catch (NotEnoughMoneyException | WrongAccountException | WrongAmountException exception) {
             transactionService.delete(transaction);
-            modelAndView.setViewName("information/exceptions");
+            modelAndView.setViewName("information/errors");
             modelAndView.addObject(client);
-            modelAndView.addObject("exception", exception.getClass().getSimpleName());
+            modelAndView.addObject("error", exception.getClass().getSimpleName());
         }
         return modelAndView;
     }

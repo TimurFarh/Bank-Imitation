@@ -16,7 +16,7 @@
     </title>
 </head>
 <body>
-    <c:if test="${exception.toString() eq 'NotEnoughtMoneyException'}">
+    <c:if test="${exception.toString() eq 'NotEnoughMoneyException'}">
         <h2>You don't have enough money on your account</h2>
     </c:if>
     <c:if test="${exception.toString() eq 'WrongAccountException'}">

@@ -36,6 +36,7 @@
         </c:if>
         <c:if test="${operation.ordinal() == 2}">
             <input type="hidden" name="from" value="${account.id}">
+            <input type="hidden" name="amount" value="${account.balance}">
             <label for="to">Enter number of account or external account name</label>
             <input type="text" name="to" id="to">
             <input type="submit" value="Close account">

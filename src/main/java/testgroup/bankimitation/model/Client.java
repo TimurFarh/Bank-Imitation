@@ -26,8 +26,8 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BankAccount> accounts;
 
-    public Client() {
-    }
+    @OneToMany(mappedBy = "client", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Transaction> transactions;
 
     public int getId() {
         return id;
@@ -75,6 +75,14 @@ public class Client {
 
     public void setAccounts(List<BankAccount> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override

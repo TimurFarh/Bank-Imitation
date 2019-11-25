@@ -19,9 +19,16 @@ public class TransactionDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<Transaction> getAll(int id) {
+    public List<Transaction> getAllByAccount(int id) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Transaction where account.id = :id");
+        query.setParameter("id", id);
+        return query.list();
+    }
+
+    public List<Transaction> getAllByClient(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Transaction where client.id = :id");
         query.setParameter("id", id);
         return query.list();
     }

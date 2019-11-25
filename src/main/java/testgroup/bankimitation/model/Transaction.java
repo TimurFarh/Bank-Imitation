@@ -1,6 +1,6 @@
 package testgroup.bankimitation.model;
 
-import com.sun.istack.Nullable;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +29,11 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     @Nullable
     private BankAccount account;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    @Nullable
+    private Client client;
 
     public String getFrom() {
         return from;
@@ -76,5 +81,14 @@ public class Transaction {
 
     public void setOperation(Operations operation) {
         this.operation = operation;
+    }
+
+    @Nullable
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(@Nullable Client client) {
+        this.client = client;
     }
 }

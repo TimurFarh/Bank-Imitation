@@ -19,3 +19,4 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
         return new String[]{"/"};
     }
 }
+

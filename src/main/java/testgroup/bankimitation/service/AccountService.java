@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import testgroup.bankimitation.dao.AccountDAO;
-import testgroup.bankimitation.exception.NotEnoughMoneyException;
-import testgroup.bankimitation.exception.WrongAccountException;
-import testgroup.bankimitation.exception.WrongAmountException;
+import testgroup.bankimitation.error.NotEnoughMoneyException;
+import testgroup.bankimitation.error.WrongAccountException;
 import testgroup.bankimitation.model.BankAccount;
+import testgroup.bankimitation.model.Operations;
 import testgroup.bankimitation.model.Transaction;
 
 import java.util.List;
@@ -30,8 +30,8 @@ public class AccountService {
         accountDAO.add(account);
     }
 
-    public void edit(BankAccount account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException, WrongAmountException {
-        if (transaction.getAmount() < 0) throw new WrongAmountException();
+    public Transaction edit(BankAccount account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
+        Transaction depositTransaction = null;
         switch (operation) {
             case 0: //deposit
                 if (transaction.getFrom().matches("\\d+")) throw new WrongAccountException();
@@ -40,32 +40,34 @@ public class AccountService {
 
             case 1: //withdraw
                 if (account.getBalance() < transaction.getAmount()) throw new NotEnoughMoneyException();
-                checkDepositAccount(account, transaction);
+                depositTransaction = checkDepositAccount(account, transaction);
                 account.setBalance(account.getBalance() - transaction.getAmount());
                 break;
 
             case 2: //close
-                checkDepositAccount(account, transaction);
+                depositTransaction = checkDepositAccount(account, transaction);
                 accountDAO.delete(account);
-                return;
+                break;
         }
         accountDAO.edit(account);
+        return depositTransaction;
     }
 
     public BankAccount getById(int id) {
         return accountDAO.getById(id);
     }
 
-    private void checkDepositAccount(BankAccount account, Transaction transaction) throws WrongAccountException {
+    private Transaction checkDepositAccount(BankAccount account, Transaction transaction) throws WrongAccountException {
         try {
             int depositNumber = Integer.parseInt(transaction.getTo());
             if (depositNumber == account.getId()) throw new WrongAccountException();
             BankAccount depositAccount = getById(depositNumber);
             if (depositAccount == null) throw new WrongAccountException();
             depositAccount.setBalance(depositAccount.getBalance() + transaction.getAmount());
+            Transaction depositTransaction = new Transaction(Operations.Deposit, transaction.getTo(), transaction.getFrom(), transaction.getAmount(), depositAccount);
+            return depositTransaction;
         } catch (NumberFormatException e) {
         }
+        return null;
     }
-
-
 }

@@ -1,7 +1,5 @@
 package testgroup.bankimitation.model;
 
-import testgroup.bankimitation.exception.NotEnoughMoneyException;
-
 import javax.persistence.*;
 import java.util.List;
 

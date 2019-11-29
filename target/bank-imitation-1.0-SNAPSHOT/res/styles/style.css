@@ -1,0 +1,99 @@
+body {
+    background-size: 20%;
+    background: #aaffff url("../pictures/logo.jpg") no-repeat center top;
+}
+
+table {
+    font-family: "Arial", sans-serif;
+    border: solid blue 2px;
+    font-size: 14px;
+    background: #d5d771;
+    max-width: 70%;
+    width: 70%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 9%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table tr:first-child {
+    background-color: #fffe13;
+    border-bottom: solid blue 2px;
+}
+
+th {
+    font-weight: normal;
+    color: #039;
+    border-bottom: 2px solid #6678b1;
+    padding: 10px 8px;
+}
+
+td, a {
+    color: #669;
+    padding: 9px 8px;
+    transition: .3s linear;
+    text-underline: none;
+}
+
+tr:hover td {color: #397aff;}
+
+tr:nth-child(2n) {background: #f3ff94;}
+
+caption {
+    color: #039;
+    font-size: 25px;
+    padding-bottom: 5px;
+}
+
+a.add {
+    color: #ff6600;
+    border-radius: 25px;
+    border: 3px solid #3e71e7;
+    background-color: #00c6d2;
+    position: relative;
+    top: 30px;
+    left: 45%;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.add:hover {
+    color: #00c6d2;
+    background: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.add span {
+    opacity: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    position: relative;
+    left: auto;
+    right: auto;
+}
+
+a.add:hover span {
+    opacity: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #00c6d2;
+    text-decoration: none;
+}
+
+input.cancel {
+    color: rgb(250, 239, 246);
+    background-color: rgba(97, 91, 92, 0.73);
+    position: relative;
+    left: 820px;
+    top: 40px;
+    width: 100px;
+}
+
+input.cancel:hover {
+    color: rgba(97, 91, 92, 0.73);
+    background-color: rgb(250, 239, 246);
+}

@@ -35,6 +35,17 @@ public class Transaction {
     @Nullable
     private Client client;
 
+    public Transaction() {
+    }
+
+    public Transaction(Operations operation, String from, String to, int amount, @Nullable BankAccount account) {
+        this.operation = operation;
+        this.from = from;
+        this.to = to;
+        this.amount = amount;
+        this.account = account;
+    }
+
     public String getFrom() {
         return from;
     }

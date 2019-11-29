@@ -50,22 +50,25 @@ public class TransactionController {
         return modelAndView;
     }
 
-    //TODO If after or before will be null
-    @GetMapping(value = "/transactions/{client}/{clientId}")
+    @GetMapping(value = "/client-transactions/{clientId}")
     public ModelAndView getClientTransactions(@PathVariable int clientId, @ModelAttribute("after") Date after, @ModelAttribute("before") Date before) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("transaction/historyTransactions");
         List<Transaction> transactions = transactionService.getAllByClient(clientId, after, before);
+        Client client = clientService.getById(clientId);
+        modelAndView.setViewName("transaction/historyTransactions");
         modelAndView.addObject("transactions", transactions);
+        modelAndView.addObject("client", client);
         return modelAndView;
     }
 
-    @GetMapping(value = "/transactions/{accountId}")
-    public ModelAndView getAccountTransactions(@PathVariable int accountId) {
+    @GetMapping(value = "/account-transactions/{accountId}/{clientId}")
+    public ModelAndView getAccountTransactions(@PathVariable int accountId, @PathVariable int clientId) {
         ModelAndView modelAndView = new ModelAndView();
         List<Transaction> transactions = transactionService.getAllByAccount(accountId);
+        Client client = clientService.getById(clientId);
         modelAndView.setViewName("transaction/historyTransactions");
         modelAndView.addObject("transactions", transactions);
+        modelAndView.addObject("client", client);
         return modelAndView;
     }
 }

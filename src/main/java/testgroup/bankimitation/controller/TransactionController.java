@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import testgroup.bankimitation.model.BankAccount;
+import testgroup.bankimitation.model.Account;
 import testgroup.bankimitation.model.Client;
 import testgroup.bankimitation.model.Transaction;
 import testgroup.bankimitation.service.AccountService;
@@ -41,7 +41,7 @@ public class TransactionController {
     @PostMapping(value = "/transaction/{clientId}/{accountId}/{operation}")
     public ModelAndView addTransaction(@ModelAttribute Transaction transaction, @PathVariable int accountId, @PathVariable int operation, @PathVariable int clientId) {
         ModelAndView modelAndView = new ModelAndView();
-        BankAccount account = accountService.getById(accountId);
+        Account account = accountService.getById(accountId);
         Client client = clientService.getById(clientId);
         transaction.setAccount(account);
         transaction.setClient(client);

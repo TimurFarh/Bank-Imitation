@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import testgroup.bankimitation.dao.AccountDAO;
 import testgroup.bankimitation.error.NotEnoughMoneyException;
 import testgroup.bankimitation.error.WrongAccountException;
-import testgroup.bankimitation.model.BankAccount;
+import testgroup.bankimitation.model.Account;
 import testgroup.bankimitation.model.Operations;
 import testgroup.bankimitation.model.Transaction;
 
@@ -22,15 +22,15 @@ public class AccountService {
         this.accountDAO = accountDAO;
     }
 
-    public List<BankAccount> getAll(int id) {
+    public List<Account> getAll(int id) {
         return accountDAO.getAll(id);
     }
 
-    public void add(BankAccount account) {
+    public void add(Account account) {
         accountDAO.add(account);
     }
 
-    public Transaction edit(BankAccount account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
+    public Transaction edit(Account account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
         Transaction depositTransaction = null;
         switch (operation) {
             case 0: //deposit
@@ -53,18 +53,18 @@ public class AccountService {
         return depositTransaction;
     }
 
-    public BankAccount getById(int id) {
+    public Account getById(int id) {
         return accountDAO.getById(id);
     }
 
-    private Transaction checkDepositAccount(BankAccount account, Transaction transaction) throws WrongAccountException {
+    private Transaction checkDepositAccount(Account account, Transaction transaction) throws WrongAccountException {
         try {
             int depositNumber = Integer.parseInt(transaction.getTo());
             if (depositNumber == account.getId()) throw new WrongAccountException();
-            BankAccount depositAccount = getById(depositNumber);
+            Account depositAccount = getById(depositNumber);
             if (depositAccount == null) throw new WrongAccountException();
             depositAccount.setBalance(depositAccount.getBalance() + transaction.getAmount());
-            Transaction depositTransaction = new Transaction(Operations.Deposit, transaction.getTo(), transaction.getFrom(), transaction.getAmount(), depositAccount);
+            Transaction depositTransaction = new Transaction(Operations.Deposit, transaction.getTo(), transaction.getFrom(), transaction.getAmount(), depositAccount, depositAccount.getClient());
             return depositTransaction;
         } catch (NumberFormatException e) {
         }

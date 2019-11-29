@@ -28,7 +28,7 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     @Nullable
-    private BankAccount account;
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
@@ -38,12 +38,13 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Operations operation, String from, String to, int amount, @Nullable BankAccount account) {
+    public Transaction(Operations operation, String from, String to, int amount, @Nullable Account account, Client client) {
         this.operation = operation;
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.account = account;
+        this.client = client;
     }
 
     public String getFrom() {
@@ -70,11 +71,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public BankAccount getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(BankAccount account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

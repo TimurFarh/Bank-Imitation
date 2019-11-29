@@ -1236,7 +1236,7 @@
       <ColNames>account_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="317" parent="231" name="transactions_clients_id_fk">
+    <index id="317" parent="231" name="transactions_fk">
       <ColNames>client_id</ColNames>
       <Type>btree</Type>
     </index>
@@ -1251,11 +1251,10 @@
       <RefColNames>id</RefColNames>
       <OnDelete>set-null</OnDelete>
     </foreign-key>
-    <foreign-key id="320" parent="231" name="transactions_clients_id_fk">
+    <foreign-key id="320" parent="231" name="transactions_fk">
       <ColNames>client_id</ColNames>
       <RefTableName>clients</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnDelete>set-null</OnDelete>
     </foreign-key>
     <column id="321" parent="232" name="CHARACTER_SET_NAME">
       <Position>1</Position>

@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "bank_accounts")
-public class BankAccount {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class BankAccount {
     @OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Transaction> transactions;
 
-    public BankAccount() {
+    public Account() {
     }
 
     public int getId() {

@@ -36,20 +36,21 @@ public class AccountService {
             case 0: //deposit
                 if (transaction.getFrom().matches("\\d+")) throw new WrongAccountException();
                 account.setBalance(account.getBalance() + transaction.getAmount());
+                accountDAO.edit(account);
                 break;
 
             case 1: //withdraw
                 if (account.getBalance() < transaction.getAmount()) throw new NotEnoughMoneyException();
                 depositTransaction = checkDepositAccount(account, transaction);
                 account.setBalance(account.getBalance() - transaction.getAmount());
+                accountDAO.edit(account);
                 break;
 
             case 2: //close
-                depositTransaction = checkDepositAccount(account, transaction);
+                if (account.getBalance() != 0) depositTransaction = checkDepositAccount(account, transaction);
                 accountDAO.delete(account);
                 break;
         }
-        accountDAO.edit(account);
         return depositTransaction;
     }
 

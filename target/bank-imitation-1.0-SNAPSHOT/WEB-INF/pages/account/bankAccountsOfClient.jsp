@@ -50,12 +50,12 @@
     </c:forEach>
 </table>
 <a href="/add-new-account/${client.id}" class="add"><span>▶</span>Add new account<span>◀</span></a>
-<form action="/client-transactions/${client.id}"> <!-- Client transactions -->
-    <label for="after">After</label>
+<form action="/client-transactions/${client.id}" class="date"> <!-- Client transactions -->
+    <label for="after" class="date">After</label>
     <input type="date" name="after" id="after" required>
-    <label for="before">Before</label>
+    <label for="before" class="date">Before</label>
     <input type="date" name="before" id="before" required>
-    <input type="submit" value="Transactions">
+    <input type="submit" class="date" value="Transactions">
 </form>
 <form action="/"><input type="submit" class="cancel" value="List of clients"></form>
 </body>

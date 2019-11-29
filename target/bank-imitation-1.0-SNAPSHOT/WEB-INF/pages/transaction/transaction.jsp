@@ -37,6 +37,6 @@
         <p><input type="submit" class="submit" value="Close account"></p>
     </c:if>
 </form>
-<form action="/${client}/${client.id}/accounts" method="GET"><input type="submit" class="cancel" value="Back"></form>
+<form action="/${client}/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
 </body>
 </html>

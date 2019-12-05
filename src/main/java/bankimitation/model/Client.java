@@ -2,6 +2,7 @@ package bankimitation.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "clients")
@@ -27,12 +28,18 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Transaction> transactions;
 
-    public int getId() {
-        return id;
+    public Client() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Client(String firstName, String lastName, int age, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.address = address;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -84,8 +91,20 @@ public class Client {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return id == client.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return 37 * id;
+    }
+
+    @Override
     public String toString() {
         return  firstName + lastName;
     }
-
 }

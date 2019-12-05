@@ -24,19 +24,19 @@ public class ClientDAO {
         return session.createQuery("from Client").list();
     }
 
-    public void add(Client object) {
+    public void add(Client client) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(object);
+        session.persist(client);
     }
 
-    public void delete(Client object) {
+    public void delete(Client client) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(object);
+        session.delete(client);
     }
 
-    public void edit(Client object) {
+    public void edit(Client client) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(object);
+        session.update(client);
     }
 
     public Client getById(int id) {

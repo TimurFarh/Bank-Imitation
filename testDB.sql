@@ -9,8 +9,7 @@ create table clients(
     last_name varchar(55) not null,
     age smallint not null,
     address varchar(255) not null,
-        constraint client_pk
-                    primary key (id)
+        constraint PRIMARY KEY (id)
 );
 
 create table accounts (

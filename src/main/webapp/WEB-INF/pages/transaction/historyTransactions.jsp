@@ -43,6 +43,6 @@
     </c:forEach>
 </table>
 
-<form action="/${client}/${client.id}/accounts" method="GET"><input type="submit" class="cancel" value="Back"></form>
+<form action="/${client.id}/accounts" method="GET"><input type="submit" class="cancel" value="Back"></form>
 </body>
 </html>

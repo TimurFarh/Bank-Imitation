@@ -22,27 +22,27 @@
             <td>${account.balance}</td>
             <td>
                 <a href="/deposit-account/${client.id}/${account.id}">
-                    <img src="<c:url value="/res/pictures/deposit.png"/>" width="35" height="35" title="Deposit">       <!-- Deposit -->
+                    <img src="<c:url value="/res/pictures/deposit.png"/>" width="35" height="35" title="Deposit">                   <!-- Deposit -->
                 </a>
             </td>
 
             <td>
                 <a href="/withdraw-account/${clientId}/${account.id}">
-                    <img src="<c:url value="/res/pictures/withdraw.png"/>" width="35" height="35" title="Withdraw">      <!-- Withdraw -->
+                    <img src="<c:url value="/res/pictures/withdraw.png"/>" width="35" height="35" title="Withdraw/Transfer">        <!-- Withdraw -->
                 </a>
             </td>
 
 
             <td>
                 <a href="/account-transactions/${account.id}/${client.id}">
-                    <img src="<c:url value="/res/pictures/transactions.png"/>" width="35" height="35" title="Transactions">  <!-- Account transactions -->
+                    <img src="<c:url value="/res/pictures/transactions.png"/>" width="35" height="35" title="Transactions">         <!-- Account transactions -->
                 </a>
             </td>
 
 
             <td>
                 <a href="/delete-account/${client.id}/${account.id}">
-                    <img src="<c:url value="/res/pictures/close.png"/>" width="35" height="35" title="Close account">
+                    <img src="<c:url value="/res/pictures/close.png"/>" width="35" height="35" title="Close account">               <!-- Close -->
                 </a>
             </td>     <!-- Close account -->
 

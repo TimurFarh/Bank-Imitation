@@ -12,6 +12,6 @@
     <p><input type="text" name="name" placeholder="Account name" class="field" maxlength="50" required></p>
     <p><input type="submit" class="submit" value="Add new account"></p>
 </form>
-<form action="/${client}/${client.id}/accounts" method="GET"><input type="submit" class="cancel" value="Cancel"></form>
+<form action="/${client.id}/accounts" method="GET"><input type="submit" class="cancel" value="Cancel"></form>
 </body>
 </html>

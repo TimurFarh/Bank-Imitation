@@ -1,5 +1,7 @@
 package bankimitation.controller;
 
+import bankimitation.error.NotEnoughMoneyException;
+import bankimitation.error.WrongAccountException;
 import bankimitation.service.AccountService;
 import bankimitation.service.ClientService;
 import bankimitation.service.TransactionService;
@@ -38,18 +40,6 @@ public class TransactionController {
         this.clientService = clientService;
     }
 
-    @PostMapping(value = "/transaction/{clientId}/{accountId}/{operation}")
-    public ModelAndView addTransaction(@ModelAttribute Transaction transaction, @PathVariable int accountId, @PathVariable int operation, @PathVariable int clientId) {
-        ModelAndView modelAndView = new ModelAndView();
-        Account account = accountService.getById(accountId);
-        Client client = clientService.getById(clientId);
-        transaction.setAccount(account);
-        transaction.setClient(client);
-        transactionService.add(transaction);
-        modelAndView.setViewName(String.format("redirect:/transaction-account/%d/%d/%d/%d", clientId, accountId, operation, transaction.getId()));
-        return modelAndView;
-    }
-
     @GetMapping(value = "/client-transactions/{clientId}")
     public ModelAndView getClientTransactions(@PathVariable int clientId, @ModelAttribute("after") Date after, @ModelAttribute("before") Date before) {
         ModelAndView modelAndView = new ModelAndView();
@@ -69,6 +59,29 @@ public class TransactionController {
         modelAndView.setViewName("transaction/historyTransactions");
         modelAndView.addObject("transactions", transactions);
         modelAndView.addObject("client", client);
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/transaction/{clientId}/{accountId}")
+    public ModelAndView transactionsHandler(@ModelAttribute("transaction") Transaction transaction, @PathVariable int clientId, @PathVariable int accountId) {
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = accountService.getById(accountId);
+        Client client = clientService.getById(clientId);
+        transaction.setAccount(account);
+        transaction.setClient(client);
+        try {
+            transactionService.add(transaction);
+            Transaction depositTransaction = accountService.edit(account, transaction);
+            if (depositTransaction != null) {
+                transactionService.add(depositTransaction);
+            }
+            modelAndView.setViewName(String.format("redirect:/%d/accounts/", client.getId()));
+        } catch (NotEnoughMoneyException | WrongAccountException exception) {
+            transactionService.delete(transaction);
+            modelAndView.setViewName("information/errors");
+            modelAndView.addObject(client);
+            modelAndView.addObject("error", exception.getClass().getSimpleName());
+        }
         return modelAndView;
     }
 }

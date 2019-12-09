@@ -10,7 +10,7 @@
     </title>
 </head>
 <body>
-<form action="/transaction/${clientId}/${account.id}/${operation.ordinal()}" method="POST">
+<form action="/transaction/${clientId}/${account.id}" method="POST">
     <input type="hidden" name="operation" value="${operation}">
     <c:if test="${operation.ordinal() == 0}">
         <div class="header">Deposit into account №${account.id}</div>
@@ -37,6 +37,6 @@
         <p><input type="submit" class="submit" value="Close account"></p>
     </c:if>
 </form>
-<form action="/${client}/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
+<form action="/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
 </body>
 </html>

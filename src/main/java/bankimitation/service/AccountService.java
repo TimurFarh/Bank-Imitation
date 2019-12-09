@@ -30,8 +30,9 @@ public class AccountService {
         accountDAO.add(account);
     }
 
-    public Transaction edit(Account account, int operation, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
+    public Transaction edit(Account account, Transaction transaction) throws NotEnoughMoneyException, WrongAccountException {
         Transaction depositTransaction = null;
+        int operation = transaction.getOperation().ordinal();
         switch (operation) {
             case 0: //deposit
                 if (transaction.getFrom().matches("\\d+")) throw new WrongAccountException();
@@ -47,11 +48,15 @@ public class AccountService {
                 break;
 
             case 2: //close
-                if (account.getBalance() != 0) depositTransaction = checkDepositAccount(account, transaction);
+                if (account.getBalance() > 0) depositTransaction = checkDepositAccount(account, transaction);
                 accountDAO.delete(account);
                 break;
         }
         return depositTransaction;
+    }
+
+    public void delete(Account account) {
+        accountDAO.delete(account);
     }
 
     public Account getById(int id) {
@@ -65,7 +70,7 @@ public class AccountService {
             Account depositAccount = getById(depositNumber);
             if (depositAccount == null) throw new WrongAccountException();
             depositAccount.setBalance(depositAccount.getBalance() + transaction.getAmount());
-            Transaction depositTransaction = new Transaction(Operations.Deposit, transaction.getTo(), transaction.getFrom(), transaction.getAmount(), depositAccount, depositAccount.getClient());
+            Transaction depositTransaction = new Transaction(Operations.Deposit, transaction.getFrom(), transaction.getTo(), transaction.getAmount(), depositAccount, depositAccount.getClient());
             return depositTransaction;
         } catch (NumberFormatException e) {
         }

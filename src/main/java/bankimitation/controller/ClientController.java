@@ -32,7 +32,7 @@ public class ClientController {
     public ModelAndView editClient(@PathVariable("id") int id) {
         Client client = service.getById(id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("client/addNewClient");
+        modelAndView.setViewName("client/addOrEditClient");
         modelAndView.addObject("client", client);
         return modelAndView;
     }
@@ -48,7 +48,7 @@ public class ClientController {
     @GetMapping(value = "/add")
     public ModelAndView addClient() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("client/addNewClient");
+        modelAndView.setViewName("client/addOrEditClient");
         return modelAndView;
     }
 

@@ -15,6 +15,6 @@
     <c:if test="${error.toString() eq 'WrongAccountException'}">
         <h2>Account doesn't exists or you entered the same account</h2>
     </c:if>
-    <form action="/${client}/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
+    <form action="/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
 </body>
 </html>

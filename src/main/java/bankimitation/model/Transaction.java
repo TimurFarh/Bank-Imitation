@@ -4,6 +4,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "transactions")
@@ -27,18 +28,23 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    @Nullable
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @Nullable
     private Client client;
 
     public Transaction() {
     }
 
-    public Transaction(Operations operation, String from, String to, int amount, @Nullable Account account, Client client) {
+    public Transaction(Operations operation, String from, String to, int amount) {
+        this.operation = operation;
+        this.from = from;
+        this.to = to;
+        this.amount = amount;
+    }
+
+    public Transaction(Operations operation, String from, String to, int amount, Account account, Client client) {
         this.operation = operation;
         this.from = from;
         this.to = to;
@@ -87,6 +93,10 @@ public class Transaction {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Operations getOperation() {
         return operation;
     }
@@ -95,12 +105,24 @@ public class Transaction {
         this.operation = operation;
     }
 
-    @Nullable
     public Client getClient() {
         return client;
     }
 
-    public void setClient(@Nullable Client client) {
+    public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return 37 * id;
     }
 }

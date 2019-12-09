@@ -17,7 +17,7 @@
     </tr>
     <c:forEach var="client" items="${allClients}">
         <tr>
-            <td><a href="/${client}/${client.id}/accounts" title="Accounts">${client.firstName}</a></td>
+            <td><a href="/${client.id}/accounts" title="Accounts">${client.firstName}</a></td>
             <td>${client.lastName}</td>
             <td>${client.age}</td>
             <td>${client.address}</td>

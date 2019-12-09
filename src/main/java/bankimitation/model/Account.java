@@ -2,6 +2,7 @@ package bankimitation.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "accounts")
@@ -24,6 +25,12 @@ public class Account {
     private List<Transaction> transactions;
 
     public Account() {
+    }
+
+    public Account(String name, int balance, Client client) {
+        this.name = name;
+        this.balance = balance;
+        this.client = client;
     }
 
     public int getId() {
@@ -60,5 +67,18 @@ public class Account {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id == account.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return 37 * id;
     }
 }

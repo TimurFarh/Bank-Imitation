@@ -6,8 +6,6 @@ Spring 5.1.9 RELEASE
 
 Hibernate 5.4.4 Final
 
-Java 8
-
 Maven 4
 
 JSP

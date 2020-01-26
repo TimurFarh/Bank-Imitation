@@ -1,10 +1,8 @@
 package bankimitation.model;
 
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "transactions")

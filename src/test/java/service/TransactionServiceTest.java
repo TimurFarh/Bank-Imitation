@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
 
@@ -25,12 +26,8 @@ public class TransactionServiceTest {
     @Mock
     private TransactionDAO transactionDAOMock;
 
-    @Mock
-    private Client client;
-
-    @Mock
-    private Account account;
-
+	private Client client = new Client("Ivan", "Ivanov", 33, "Moscow");
+    private Account account = new Account("Test", 50000, client);
     private Transaction transaction1 = new Transaction(Operations.Deposit, "Sberbank", "1", 5000, account, client);
     private Transaction transaction2 = new Transaction(Operations.Withdraw, "1", "Sberbank", 5000, account, client);
 
@@ -40,13 +37,14 @@ public class TransactionServiceTest {
     @Test
     public void getAllByClientTest() {
         List<Transaction> transactions = new ArrayList<>();
+        transaction1.setDate(Date.valueOf(LocalDate.of(2019, 10, 29))); //29.10.2019 - date of transaction 1
+        transaction2.setDate(Date.valueOf(LocalDate.of(2019, 11, 27))); //27.11.2019 - date of transaction 2
         transactions.add(transaction1);
         transactions.add(transaction2);
-        Date after = Date.valueOf(LocalDate.of(2019, 10, 28));
-        Date before = Date.valueOf(LocalDate.of(2019, 11, 30));
-        transaction1.setDate(Date.valueOf(LocalDate.of(2019, 10, 29)));
-        transaction2.setDate(Date.valueOf(LocalDate.of(2019, 11, 27)));
-        when(transactionDAOMock.getAllByClient(client.getId())).thenReturn(new ArrayList<>(Arrays.asList(transaction1, transaction2)));
+        Date after = Date.valueOf(LocalDate.of(2019, 10, 28)); //28.10.2019 - test date
+        Date before = Date.valueOf(LocalDate.of(2019, 11, 30));  //30.11.2019 - test date
+        when(transactionDAOMock.getAll()).thenReturn(new ArrayList<>(Arrays.asList(transaction1, transaction2)));
+        
         List<Transaction> testTransactions = transactionService.getAllByClient(client.getId(), after, before);
         Assert.assertEquals(transactions, testTransactions);
         Assert.assertEquals(transactions.get(0).getFrom(), testTransactions.get(0).getFrom());
@@ -55,7 +53,7 @@ public class TransactionServiceTest {
         testTransactions = transactionService.getAllByClient(client.getId(), after, before);
         Assert.assertNotEquals(transactions, testTransactions);
         Assert.assertEquals(transactions.get(0).getFrom(), testTransactions.get(0).getFrom());
-        verify(transactionDAOMock, times(2)).getAllByClient(client.getId());
+        verify(transactionDAOMock, times(2)).getAll();
     }
 
     @Test
@@ -63,9 +61,9 @@ public class TransactionServiceTest {
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction1);
         transactions.add(transaction2);
-        when(transactionDAOMock.getAllByAccount(account.getId())).thenReturn(Arrays.asList(transaction1, transaction2));
+        when(transactionDAOMock.getAll()).thenReturn(Arrays.asList(transaction1, transaction2));
         List<Transaction> testTransactions = transactionService.getAllByAccount(account.getId());
         Assert.assertEquals(transactions, testTransactions);
-        verify(transactionDAOMock).getAllByAccount(account.getId());
+        verify(transactionDAOMock).getAll();
     }
 }

@@ -6,7 +6,6 @@
     <title>Accounts</title>
 </head>
 <body>
-<c:set var="sum" value="0"/>
 <table>
     <caption>${client.firstName} ${client.lastName}</caption>
     <tr>
@@ -44,13 +43,13 @@
                 <a href="/delete-account/${client.id}/${account.id}">
                     <img src="<c:url value="/res/pictures/close.png"/>" width="35" height="35" title="Close account">               <!-- Close -->
                 </a>
-            </td>     <!-- Close account -->
+            </td>  
 
         </tr>
     </c:forEach>
 </table>
 <a href="/add-new-account/${client.id}" class="add"><span>▶</span>Add new account<span>◀</span></a>
-<form action="/client-transactions/${client.id}" class="date"> <!-- Client transactions -->
+<form action="/client-transactions/${client.id}" class="date"> 													<!-- Client transactions -->
     <label for="after" class="date">After</label>
     <input type="date" name="after" id="after" required>
     <label for="before" class="date">Before</label>

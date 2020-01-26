@@ -23,9 +23,7 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
-    @Mock
-    private Client client;
-
+	private Client client = new Client("Ivan", "Ivanov", 33, "Moscow");
     private final Account account1 = new Account("New Life", 50000, client);
     private final Account account2 = new Account("Travel", 10000, client);
 
@@ -40,14 +38,14 @@ public class AccountServiceTest {
         List<Account> accounts = new ArrayList<>();
         accounts.add(account1);
         accounts.add(account2);
-        when(accountDAOMock.getAll(client.getId())).thenReturn(Arrays.asList(account1, account2));
+        client.setId(1);
+        when(accountDAOMock.getAll()).thenReturn(Arrays.asList(account1, account2));
         List<Account> testAccounts = accountService.getAll(client.getId());
         Assert.assertEquals(accounts, testAccounts);
     }
 
     @Test
     public void depositTest() throws WrongAccountException, NotEnoughMoneyException {
-        //deposit test
         Transaction transaction = new Transaction(Operations.Deposit, "Sberbank", "1", 2000);
         account2.setBalance(52000);
         accountService.edit(account1, transaction);

@@ -31,7 +31,7 @@
         <input type="text" name="lastName" value="${client.lastName}" class="field" placeholder="Last name" maxlength="55" required>
     </p>
     <p>
-        <input type="text" name="age" value="${client.age}" class="field" placeholder="Age" required>
+        <input type="text" name="age" value="${client.age}" class="field" placeholder="Age" required min="18">
     </p>
     <p>
         <input type="text" name="address" value="${client.address}" class="field" placeholder="Address" maxlength="255" required>

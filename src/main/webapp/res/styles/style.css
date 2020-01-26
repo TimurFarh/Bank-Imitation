@@ -97,8 +97,8 @@ input.cancel {
     color: rgb(250, 239, 246);
     background-color: rgba(97, 91, 92, 0.73);
     position: relative;
-    left: 820px;
-    top: 20px;
+    top: 30px;
+    left: 47%;
     width: 100px;
 }
 
@@ -109,7 +109,7 @@ input.cancel:hover {
 
 form.date {
     margin-top: 4%;
-    margin-left: 35%;
+    margin-left: 37%;
     margin-right: auto;
 }
 

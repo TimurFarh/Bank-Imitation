@@ -91,10 +91,12 @@ public class TransactionControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(model().attribute("transaction", equalTo(testDeposit)))
                 .andExpect(view().name(String.format("redirect:/%d/accounts/", client.getId())));
+        
         Transaction testWithdraw = new Transaction(Operations.Deposit, "Test", "1", 10000, account, client);
         this.mockMvc.perform(post("/transaction/{clientId}/{accountId}", client.getId(), account.getId())
                 .flashAttr("transaction", testWithdraw))
                 .andExpect(status().isFound());
+        
         Transaction testClose = new Transaction(Operations.Deposit, "Test", "1", 10000, account, client);
         this.mockMvc.perform(post("/transaction/{clientId}/{accountId}", client.getId(), account.getId())
                 .flashAttr("transaction", testClose))

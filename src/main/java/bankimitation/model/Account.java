@@ -73,11 +73,11 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return id == account.id;
+        return id == account.id || name.equals(account.name);
     }
 
     @Override
     public int hashCode() {
-        return 37 * id;
+        return 37 * id + name.hashCode();
     }
 }

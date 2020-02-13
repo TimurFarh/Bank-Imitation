@@ -78,8 +78,8 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteAccount() throws Exception{
-        this.mockMvc.perform(get("/delete-account/{clientId}/{accountId}", client.getId(), account.getId()))
+    public void testCloseAccount() throws Exception{
+        this.mockMvc.perform(get("/close-account/{clientId}/{accountId}", client.getId(), account.getId()))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("client", equalTo(client)))
                 .andExpect(model().attribute("account", equalTo(account)))

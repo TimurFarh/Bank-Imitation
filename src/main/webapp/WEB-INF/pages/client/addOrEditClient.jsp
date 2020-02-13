@@ -5,19 +5,19 @@
 <head>
     <link href="<c:url value="/res/styles/formStyle.css"/>" rel="stylesheet" type="text/css">
     <c:if test="${empty client.firstName}">
-        <title>Add new client</title>
+        <title>Добавить нового клиента</title>
     </c:if>
     <c:if test="${!empty client.firstName}">
-        <title>Edit client</title>
+        <title>Редактирование информации</title>
     </c:if>
 </head>
 <body>
 <c:if test="${empty client.firstName}">
     <c:url value="/add" var="method"/>
-    <div class="header">Add new client</div>
+    <div class="header">Добавить нового клиента</div>
 </c:if>
 <c:if test="${!empty client.firstName}">
-    <div class="header">Edit information</div>
+    <div class="header">Редактирование информации</div>
     <c:url value="/edit" var="method"/>
 </c:if>
 <form action="${method}" method="POST">
@@ -25,26 +25,26 @@
         <input type="hidden" name="id" value="${client.id}">
     </c:if>
     <p>
-        <input type="text" name="firstName" value="${client.firstName}" class="field" placeholder="First name" maxlength="55" required>
+        <input type="text" name="firstName" value="${client.firstName}" class="field" placeholder="Имя" maxlength="55" required>
     </p>
     <p>
-        <input type="text" name="lastName" value="${client.lastName}" class="field" placeholder="Last name" maxlength="55" required>
+        <input type="text" name="lastName" value="${client.lastName}" class="field" placeholder="Фамилия" maxlength="55" required>
     </p>
     <p>
-        <input type="text" name="age" value="${client.age}" class="field" placeholder="Age" required min="18">
+        <input type="number" name="age" value="${client.age}" class="field" placeholder="Возраст" required min="18">
     </p>
     <p>
-        <input type="text" name="address" value="${client.address}" class="field" placeholder="Address" maxlength="255" required>
+        <input type="text" name="address" value="${client.address}" class="field" placeholder="Адрес" maxlength="255" required>
     </p>
     <p>
         <c:if test="${empty client.firstName}">
-            <input type="submit" class="submit" value="Add new client">
+            <input type="submit" class="submit" value="Добавить клиента">
         </c:if>
         <c:if test="${!empty client.firstName}">
-            <input type="submit" class="submit" value="Edit client">
+            <input type="submit" class="submit" value="Изменить">
         </c:if>
     </p>
 </form>
-<form action="/"><input type="submit" class="cancel" value="Cancel"></form>
+<form action="/"><input type="submit" class="cancel" value="Отмена"></form>
 </body>
 </html>

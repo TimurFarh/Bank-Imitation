@@ -1,6 +1,7 @@
 package service;
 
-import bankimitation.dao.AccountDAO;
+import bankimitation.dao.AccountDao;
+import bankimitation.error.AccountAlreadyExistsException;
 import bankimitation.error.NotEnoughMoneyException;
 import bankimitation.error.WrongAccountException;
 import bankimitation.model.Account;
@@ -28,7 +29,7 @@ public class AccountServiceTest {
     private final Account account2 = new Account("Travel", 10000, client);
 
     @Mock
-    private AccountDAO accountDAOMock;
+    private AccountDao accountDAOMock;
 
     @InjectMocks
     private AccountService accountService;
@@ -60,13 +61,6 @@ public class AccountServiceTest {
         accountService.edit(account1, transaction);
         Assert.assertEquals(account2.getBalance(), account1.getBalance());
         verify(accountDAOMock).edit(account1);
-    }
-
-    @Test
-    public void closeTest() throws WrongAccountException, NotEnoughMoneyException {
-        Transaction transaction = new Transaction(Operations.Close, "1", "PayPal", account1.getBalance());
-        doThrow(new Exception("Account deleted")).when(accountDAOMock).delete(account1);
-        accountService.edit(account1, transaction);
     }
 
     @Test

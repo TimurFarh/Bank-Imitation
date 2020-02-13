@@ -3,17 +3,17 @@
 <html>
 <head>
     <link href="<c:url value="/res/styles/style.css"/>" rel="stylesheet" type="text/css">
-    <title>List Of Clients</title>
+    <title>Список клиентов</title>
 </head>
 <body>
 <table>
-    <caption>List of clients</caption>
+    <caption>Список клиентов</caption>
     <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>Address</th>
-        <th colspan="2">Operations</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Адрес</th>
+        <th colspan="2">Операции</th>
     </tr>
     <c:forEach var="client" items="${allClients}">
         <tr>
@@ -22,12 +22,12 @@
             <td>${client.age}</td>
             <td>${client.address}</td>
             <td><a href="/edit/${client.id}">
-                    <img src="<c:url value="/res/pictures/editIcon.png"/>" title="Edit client" width="25" height="25">
+                    <img src="<c:url value="/res/pictures/editIcon.png"/>" title="Редактирование информации" width="25" height="25">
                 </a>
             </td>
             <td>
                 <a href="/delete/${client.id}">
-                    <img src="<c:url value="/res/pictures/deleteIcon.png"/>" title="Delete client" width="25" height="25">
+                    <img src="<c:url value="/res/pictures/deleteIcon.png"/>" title="Удалить клиента" width="25" height="25">
                 </a>
             </td>
         </tr>
@@ -35,6 +35,6 @@
 </table>
 
 
-<a href="/add" class="add"><span>▶</span>Add new client<span>◀</span></a>
+<a href="/add" class="add"><span>▶</span>Добавить нового клиента<span>◀</span></a>
 </body>
 </html>

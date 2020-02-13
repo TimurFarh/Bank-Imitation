@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import bankimitation.error.AccountAlreadyExistsException;
 import bankimitation.model.Account;
 
 import bankimitation.model.Client;
@@ -28,6 +30,11 @@ public class AccountController {
 		this.clientService = clientService;
 	}
 
+	/**
+	 * Обрабатывает запрос на получение списка счетов клиента.
+	 * @param clientId номер клиента.
+	 * @return страницу со счетами клиента.
+	 */
 	@GetMapping(value = "/{clientId}/accounts")
 	public ModelAndView accountsOfClient(@PathVariable("clientId") int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -39,6 +46,12 @@ public class AccountController {
 		return modelAndView;
 	}
 
+	/**
+	 * Обрабатывает запрос на пополнение счёта.
+	 * @param accountId номер счёта.
+	 * @param clientId номер клиента.
+	 * @return страницу с формой пополнения счёта.
+	 */
 	@GetMapping(value = "/deposit-account/{clientId}/{accountId}")
 	public ModelAndView depositToAccount(@PathVariable int accountId, @PathVariable int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -51,6 +64,12 @@ public class AccountController {
 		return modelAndView;
 	}
 
+	/**
+	 * Обрабатывает запрос на списание со счёта.
+	 * @param accountId номер счёта.
+	 * @param clientId номер клиента.
+	 * @return страницу с формой списания со счёта.
+	 */
 	@GetMapping(value = "/withdraw-account/{clientId}/{accountId}")
 	public ModelAndView withdrawFromAccount(@PathVariable int accountId, @PathVariable int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -63,8 +82,18 @@ public class AccountController {
 		return modelAndView;
 	}
 
-	@GetMapping(value = "/delete-account/{clientId}/{accountId}")
-	public ModelAndView deleteAccount(@PathVariable int accountId, @PathVariable int clientId) {
+	/**
+	 * Обрабатывает запрос на закрытие счёта.
+	 * @param accountId номер счёта.
+	 * @param clientId номер клиента.
+	 * @return 
+	 *  <ul>
+	 * <li>Если баланс счёта 0 возврат к {@link #accountsOfClient}.</li>
+	 * <li>В противном случае страницу с формой списания со счёта.</li>
+	 * </ul>
+	 */
+	@GetMapping(value = "/close-account/{clientId}/{accountId}")
+	public ModelAndView closeAccount(@PathVariable int accountId, @PathVariable int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
 		Client client = clientService.getById(clientId);
 		Account account = accountService.getById(accountId);
@@ -80,6 +109,11 @@ public class AccountController {
 		return modelAndView;
 	}
 
+	/**
+	 * Обрабатывает запрос на открытие нового счёта.
+	 * @param clientId номер клиента.
+	 * @return страницу с формой для открытия нового счёта.
+	 */
 	@GetMapping(value = "/add-new-account/{id}")
 	public ModelAndView addAccount(@PathVariable("id") int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -89,13 +123,29 @@ public class AccountController {
 		return modelAndView;
 	}
 
+	/**
+	 * Обрабатывает запрос на добавление нового счёта в список счетов клиента.
+	 * @param account новый счёт.
+	 * @param clientId номер клиента.
+	 * @return 
+	 * <ul>
+	 * <li>Если счёта с таким названием нет в списке - возврат к {@link #accountsOfClient}.</li>
+	 * <li>В противном случае страницу с описанием ошибки.</li>
+	 * </ul>
+	 */
 	@PostMapping(value = "/add-new-account/{clientId}")
 	public ModelAndView addAccount(@ModelAttribute("account") Account account, @PathVariable int clientId) {
 		ModelAndView modelAndView = new ModelAndView();
 		Client client = clientService.getById(clientId);
 		account.setClient(client);
-		accountService.add(account);
-		modelAndView.setViewName(String.format("redirect:/%d/accounts/", clientId));
+		try {
+			accountService.add(account, clientId);
+			modelAndView.setViewName(String.format("redirect:/%d/accounts/", clientId));
+		} catch (AccountAlreadyExistsException e) {
+			modelAndView.setViewName("information/errors");
+			modelAndView.addObject(client);
+			modelAndView.addObject("error", e.getClass().getSimpleName());
+		}
 		return modelAndView;
 	}
 }

@@ -6,6 +6,7 @@ import bankimitation.service.ClientService;
 import config.TestHibernateConfig;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class ClientControllerTest {
     }
 
     @Test
-    public void testEditGet() throws Exception {
+    public void testEditClientGet() throws Exception {
         this.mockMvc.perform(get("/edit/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("client", equalTo(clientService.getById(1))))
@@ -68,22 +69,22 @@ public class ClientControllerTest {
     }
 
     @Test
-    public void testEditPost() throws Exception {
+    public void testEditClientPost() throws Exception {
         this.mockMvc.perform(post("/edit").param("id", "1"))
                 .andExpect(status().isFound())
-                .andExpect(model().attribute("client", equalTo(client)))
+                .andExpect(model().attributeExists("client"))
                 .andExpect(view().name("redirect:/"));
     }
 
     @Test
-    public void testAddGet() throws Exception {
+    public void testAddClientGet() throws Exception {
         this.mockMvc.perform(get("/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("client/addOrEditClient"));
     }
 
     @Test
-    public void testAddPost() throws Exception {
+    public void testAddClientPost() throws Exception {
         this.mockMvc.perform(post("/add"))
                 .andExpect(status().isFound())
                 .andExpect(model().attributeExists("client"))
@@ -91,8 +92,8 @@ public class ClientControllerTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
-        this.mockMvc.perform(get("/delete/{id}", 1))
+    public void testDeleteClient() throws Exception {
+        this.mockMvc.perform(get("/delete/{id}", 2))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"));
     }

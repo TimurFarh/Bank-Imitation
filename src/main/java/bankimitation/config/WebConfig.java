@@ -13,13 +13,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "bankimitation")
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer{
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/res/**").addResourceLocations("/res/");
-    }
-
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		 registry.addResourceHandler("/res/**").addResourceLocations("/res/");
+	}
+	
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

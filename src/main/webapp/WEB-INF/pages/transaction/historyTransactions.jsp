@@ -4,16 +4,16 @@
 <html>
 <head>
     <link href="<c:url value="/res/styles/style.css"/>" rel="stylesheet" type="text/css">
-    <title>History of transactions</title>
+    <title>История операций</title>
 </head>
 <body>
 <table>
     <caption>
-        <c:if test="${!empty accountId}">Account №${accountId}</c:if>
-        <c:if test="${empty accountId}">Transactions of ${client.firstName} ${client.lastName}</c:if>
+        <c:if test="${!empty accountId}">Счёт №${accountId}</c:if>
+        <c:if test="${empty accountId}">Операции клиента ${client.firstName} ${client.lastName}</c:if>
     </caption>
     <tr>
-        <td>Operation</td>
+        <td>Операция</td>
         <c:if test="${!empty accountId}">
             <td>From(To)</td>
         </c:if>
@@ -26,7 +26,11 @@
     </tr>
     <c:forEach var="transaction" items="${transactions}">
         <tr>
-            <td>${transaction.operation}</td>
+            <td>
+            	<c:if test="${transaction.operation eq 'Deposit'}">Пополнение</c:if>
+            	<c:if test="${transaction.operation eq 'Withdraw'}">Списание</c:if>
+            	<c:if test="${transaction.operation eq 'Close'}">Закрытие</c:if>
+            </td>
             <c:if test="${!empty accountId}">
                 <td>
                     <c:if test="${transaction.operation eq 'Deposit'}">${transaction.from}</c:if>

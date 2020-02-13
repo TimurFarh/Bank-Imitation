@@ -4,17 +4,23 @@
 <head>
     <link href="<c:url value="/res/styles/style.css"/>" rel="stylesheet" type="text/css">
     <title>
-        <c:if test="${error.toString() eq 'NotEnoughMoneyException'}">Not enough money</c:if>
+        <c:if test="${error.toString() eq 'NotEnoughMoneyException'}">Не достаточно средств</c:if>
         <c:if test="${error.toString() eq 'WrongAccountException'}">Wrong account</c:if>
+        <c:if test="${error.toString() eq 'AccountAlreadyExistsException'}">Неверное название</c:if>
     </title>
 </head>
 <body>
     <c:if test="${error.toString() eq 'NotEnoughMoneyException'}">
-        <h2>You don't have enough money on your account</h2>
+        <h2>На вашем счету недостаточно средств</h2>
     </c:if>
+    
     <c:if test="${error.toString() eq 'WrongAccountException'}">
-        <h2>Account doesn't exists or you entered the same account</h2>
+        <h2>Такого счёта не существует, либо вы ввели тот же самый счёт</h2>
     </c:if>
-    <form action="/${client.id}/accounts" ><input type="submit" class="cancel" value="Back"></form>
+    
+    <c:if test="${error.toString() eq 'AccountAlreadyExistsException'}">
+    	<h2>Счёт с таким названием уже существует.</h2>
+    </c:if>
+    <form action="/${client.id}/accounts" ><input type="submit" class="cancel" value="Назад"></form>
 </body>
 </html>

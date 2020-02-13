@@ -1,4 +1,3 @@
-
 create database bank_imitation;
 
 use bank_imitation;
@@ -9,7 +8,8 @@ create table clients(
     last_name varchar(55) not null,
     age smallint not null,
     address varchar(255) not null,
-        constraint PRIMARY KEY (id)
+        constraint client_pk
+                    primary key (id)
 );
 
 create table accounts (

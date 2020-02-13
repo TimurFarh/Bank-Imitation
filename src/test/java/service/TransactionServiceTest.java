@@ -1,6 +1,6 @@
 package service;
 
-import bankimitation.dao.TransactionDAO;
+import bankimitation.dao.TransactionDao;
 import bankimitation.model.Account;
 import bankimitation.model.Client;
 import bankimitation.model.Operations;
@@ -24,7 +24,7 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionServiceTest {
     @Mock
-    private TransactionDAO transactionDAOMock;
+    private TransactionDao transactionDAOMock;
 
 	private Client client = new Client("Ivan", "Ivanov", 33, "Moscow");
     private Account account = new Account("Test", 50000, client);
@@ -37,7 +37,7 @@ public class TransactionServiceTest {
     @Test
     public void getAllByClientTest() {
         List<Transaction> transactions = new ArrayList<>();
-        transaction1.setDate(Date.valueOf(LocalDate.of(2019, 10, 29))); //29.10.2019 - date of transaction 1
+        transaction1.setDate(Date.valueOf(LocalDate.of(2019, 10, 29))); //29.10.2019 - дата первой операции
         transaction2.setDate(Date.valueOf(LocalDate.of(2019, 11, 27))); //27.11.2019 - date of transaction 2
         transactions.add(transaction1);
         transactions.add(transaction2);

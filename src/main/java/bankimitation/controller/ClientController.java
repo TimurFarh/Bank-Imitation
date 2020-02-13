@@ -18,7 +18,6 @@ public class ClientController {
         this.service = service;
     }
 
-
     @GetMapping(value = "/")
     public ModelAndView allClients() {
         List<Client> clients = service.getAll();
